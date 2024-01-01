@@ -170,14 +170,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ManualOverride: 0
   RTSESCPM: {fileID: 0}
-  BuildingsParent: {fileID: 0}
-  UnitsParent: {fileID: 0}
-  ResourcesParent: {fileID: 0}
-  PositionRing: {fileID: 0}
-  PositionPin: {fileID: 0}
-  PositionPinTop: {fileID: 0}
-  AboveTerrainTransform: {fileID: 0}
-  BelowTerrainTransform: {fileID: 0}
+  BuildingsParent: {fileID: 2742373517380276316}
+  UnitsParent: {fileID: 8974514598195593197}
+  ResourcesParent: {fileID: 8067354125058182097}
+  PositionRing: {fileID: 5862284588461622178}
+  PositionPin: {fileID: 714189594090315848}
+  PositionPinTop: {fileID: 8069657418042326514}
+  AboveTerrainTransform: {fileID: 8496151617549851703}
+  BelowTerrainTransform: {fileID: 1011676442279672275}
   factionBuildingMarkers: []
   factionUnitMarkers: []
   factionResourceMarkers: []
