@@ -3,9 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static JBooth.MicroSplat.MicroSplatBaseFeatures;
-using Unity.Burst.Intrinsics;
-using Cinemachine.Editor;
 
 [CustomEditor(typeof(PlayerStartLocation))]
 public class PlayerStartLocationEditor : Editor

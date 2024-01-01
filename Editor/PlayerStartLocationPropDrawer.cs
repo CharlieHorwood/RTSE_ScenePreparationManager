@@ -1,4 +1,3 @@
-using DG.DemiEditor;
 using RTSEngine.Determinism;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,33 +23,21 @@ public class PlayerStartLocationPropDrawer : PropertyDrawer
         var addUnitRect = new Rect(position.x + 310, position.y, 40, 40);
 
 
-
-        GUI.Label(elementTitleRect,"Player Position: "+ property.GetIndexInArray());
+        //GUI.Label(elementTitleRect,"Player Position: "+ property.GetArrayElementAtIndex().GetIndexInArray());
         //GUI.Label(currentPositionRect, "Location: x:" +);
 
-        Texture2D markerIcon = EditorGUIUtility.Load("Assets/RTS Engine/Modules/ScenePrepManager/Textures/player-marker-icon.png") as Texture2D;
-        Texture2D buildingIcon = EditorGUIUtility.Load("Assets/RTS Engine/Modules/ScenePrepManager/Textures/building-icon.png") as Texture2D;
-        Texture2D unitIcon = EditorGUIUtility.Load("Assets/RTS Engine/Modules/ScenePrepManager/Textures/unit-icon.png") as Texture2D;
+        Texture2D markerIcon = EditorGUIUtility.Load("Assets/RTS Engine/Modules/RTSE_ScenePreparationManager/Textures/player-marker-icon.png") as Texture2D;
+        Texture2D buildingIcon = EditorGUIUtility.Load("Assets/RTS Engine/Modules/RTSE_ScenePreparationManager/Textures/building-icon.png") as Texture2D;
+        Texture2D unitIcon = EditorGUIUtility.Load("Assets/RTS Engine/Modules/RTSE_ScenePreparationManager/Textures/unit-icon.png") as Texture2D;
 
         EditorGUIUtility.labelWidth = 0;
 
         GameObject parent = GameObject.Find("PlayerStartPositions");
-        if (parent != null && parent.transform.childCount > 0 && property.GetIndexInArray() < parent.transform.childCount)
-        {
-            if(parent.transform.GetChild(property.GetIndexInArray() + 1) != null)
-            {
-                GUI.Label(currentPositionRect, "Position: " + parent.transform.GetChild(property.GetIndexInArray() + 1).position);
-            }
-            
-        }
-        else
-        {
-            GUI.Label(currentPositionRect, "Position marker not set");
-        }
+        
 
         if (GUI.Button(addPlayerRect, markerIcon))
         {
-            Debug.Log("element at: "+ property.GetIndexInArray());
+            //Debug.Log("element at: "+ property.GetIndexInArray());
         }
         if (GUI.Button(addBuildingRect, buildingIcon))
         {
