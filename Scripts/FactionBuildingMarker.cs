@@ -6,5 +6,5 @@ using UnityEngine;
 [Serializable]
 public class FactionBuildingMarker : MonoBehaviour
 {
-    public int buildingIndexToSpawn = -1;
+    public int buildingIndexToSpawn = 0;
 }

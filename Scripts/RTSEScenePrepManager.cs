@@ -66,7 +66,7 @@ public class RTSEScenePrepManager : MonoBehaviour, IPreRunGameService
             foreach (FactionSlot facSlot in source.FactionSlots)
             {
                 index++;
-                AvailableFaction thisFactionData = AvailableFactions.Find(AF => AF.FactionType.Key == facSlot.Data.type.Key);
+                AvailableFaction thisFactionData = AvailableFactions.Find(AF => AF.FactionType == facSlot.Data.type);
                 if (thisFactionData != null)
                 {
                     // First we will get the position GO for the player by index
