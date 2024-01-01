@@ -9,6 +9,7 @@ public class PlayerStartLocationPropDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
+        
         EditorGUI.BeginProperty(position, label, property);
         position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), GUIContent.none);
         var indent = EditorGUI.indentLevel;
@@ -22,8 +23,9 @@ public class PlayerStartLocationPropDrawer : PropertyDrawer
         var addBuildingRect = new Rect(position.x + 270, position.y, 40, 40);
         var addUnitRect = new Rect(position.x + 310, position.y, 40, 40);
 
-
-        //GUI.Label(elementTitleRect,"Player Position: "+ property.GetArrayElementAtIndex().GetIndexInArray());
+        int childIndex = -1;
+        
+        GUI.Label(elementTitleRect,"Player Position: ");
         //GUI.Label(currentPositionRect, "Location: x:" +);
 
         Texture2D markerIcon = EditorGUIUtility.Load("Assets/RTS Engine/Modules/RTSE_ScenePreparationManager/Textures/player-marker-icon.png") as Texture2D;
