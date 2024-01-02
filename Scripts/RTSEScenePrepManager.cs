@@ -13,6 +13,7 @@ using System.Linq;
 using System;
 using RTSEngine.Terrain;
 using RTSEngine.Health;
+using RTSEngine;
 
 public class RTSEScenePrepManager : MonoBehaviour, IPreRunGameService
 {
@@ -72,7 +73,10 @@ public class RTSEScenePrepManager : MonoBehaviour, IPreRunGameService
                     // First we will get the position GO for the player by index
                     if (this.PlayerPositionsParent.GetChild(index).TryGetComponent(out PlayerStartLocation thisPlayersStart))
                     {
-                        facSlot.FactionSpawnPosition.Set(thisPlayersStart.transform.position.x, thisPlayersStart.transform.position.y, thisPlayersStart.transform.position.z);
+                        if (facSlot.IsLocalPlayerFaction())
+                        {
+                            this.CamController.PanningHandler.SetPosition(thisPlayersStart.BuildingsParent.GetChild(0).position);
+                        }
                         // For now we can get the child objects for buildings and units by index so we first run a check on children
                         // We use index 0 for building positions
                         if (thisPlayersStart.BuildingsParent.childCount > 0)
