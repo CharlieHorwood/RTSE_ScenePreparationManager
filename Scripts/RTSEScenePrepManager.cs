@@ -98,11 +98,10 @@ public class RTSEScenePrepManager : MonoBehaviour, IPreRunGameService
                                                     isBuilt = true,
                                                     setInitialHealth = true,
                                                     initialHealth = thisFactionData.FactionBuildings.ElementAtOrDefault(bldngMarker.buildingIndexToSpawn).StartingHealth,
+                                                    giveInitResources = true,
                                                     playerCommand = false
                                                 }
                                             );
-                                            if(placedBuilding.InitResources.Count() > 0)
-                                                this.ResourceMgr.SetResource(facSlot.ID, placedBuilding.InitResources.ElementAtOrDefault(0));
                                             
                                         }
                                     }
@@ -128,6 +127,7 @@ public class RTSEScenePrepManager : MonoBehaviour, IPreRunGameService
                                             new InitUnitParameters
                                             {
                                                 factionID = facSlot.ID,
+                                                giveInitResources = true,
                                                 playerCommand = false
                                             }
                                         );
