@@ -101,6 +101,9 @@ public class RTSEScenePrepManager : MonoBehaviour, IPreRunGameService
                                                     playerCommand = false
                                                 }
                                             );
+                                            if(placedBuilding.InitResources.Count() > 0)
+                                                this.ResourceMgr.SetResource(facSlot.ID, placedBuilding.InitResources.ElementAtOrDefault(0));
+                                            
                                         }
                                     }
                                 }
