@@ -1,6 +1,7 @@
 using RTSEngine.Determinism;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
 
@@ -23,10 +24,25 @@ public class PlayerStartLocationPropDrawer : PropertyDrawer
         var addBuildingRect = new Rect(position.x + 270, position.y, 40, 40);
         var addUnitRect = new Rect(position.x + 310, position.y, 40, 40);
 
-        int childIndex = -1;
-        
-        GUI.Label(elementTitleRect,"Player Position: ");
-        //GUI.Label(currentPositionRect, "Location: x:" +);
+        int index = -1;
+        Regex regex = new Regex(@"\[([0-9]+)\]");
+        if(regex.IsMatch(property.propertyPath)){
+            Match match = regex.Match(property.propertyPath);
+            index = int.Parse(match.Groups[1].Value);
+            GUI.Label(elementTitleRect, "Player Position: " + index);
+        }
+        else
+        {
+            GUI.Label(elementTitleRect, "Player Position: No Index ");
+        }
+        GameObject parent = GameObject.Find("PlayerStartPos");
+        if (parent != null && parent.transform.childCount > 0 && index < parent.transform.childCount) {
+            if (index != -1 && parent.transform.GetChild(index) != null){
+                    GUI.Label(currentPositionRect, "Position: " + parent.transform.GetChild(index).position);
+             } else {
+                    GUI.Label(currentPositionRect, "Position marker not set");
+             }
+        }      
 
         Texture2D markerIcon = EditorGUIUtility.Load("Assets/RTS Engine/Modules/RTSE_ScenePreparationManager/Textures/player-marker-icon.png") as Texture2D;
         Texture2D buildingIcon = EditorGUIUtility.Load("Assets/RTS Engine/Modules/RTSE_ScenePreparationManager/Textures/building-icon.png") as Texture2D;
@@ -34,7 +50,7 @@ public class PlayerStartLocationPropDrawer : PropertyDrawer
 
         EditorGUIUtility.labelWidth = 0;
 
-        GameObject parent = GameObject.Find("PlayerStartPositions");
+       // GameObject parent = GameObject.Find("PlayerStartPositions");
         
 
         if (GUI.Button(addPlayerRect, markerIcon))
