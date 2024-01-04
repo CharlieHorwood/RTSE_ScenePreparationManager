@@ -41,11 +41,13 @@ public class RTSEScenePrepManager : MonoBehaviour, IPreRunGameService
     public FactionTypeInfo FactionTypeAdder;
     public int NewPlayerIndex = 0;
     public bool IsPlacingPlayerStart = false;
+    protected int GameMgrFactionCount;
     #endregion
 
     public void Init(IGameManager GameMgr)
     {
         this.GameMgr = GameMgr;
+        GameMgrFactionCount = this.GameMgr.FactionCount;
         this.GlobalEvent = GameMgr.GetService<IGlobalEventPublisher>();
         this.BuildingMgr = GameMgr.GetService<IBuildingManager>();
         this.UnitMgr = GameMgr.GetService<IUnitManager>();
@@ -61,18 +63,20 @@ public class RTSEScenePrepManager : MonoBehaviour, IPreRunGameService
     public void HandleGameStartRunning(IGameManager source, EventArgs args)
     {
         
-        if (this.AvailableFactions.Count > 0 && source.FactionSlots.Count > 0 && this.PlayerPositionsParent != null && PlayerPositionsParent.childCount == source.FactionCount)
+        if (this.AvailableFactions.Count > 0 && source.FactionSlots.Count > 0 && this.PlayerPositionsParent != null && PlayerPositionsParent.childCount >= source.FactionCount)
         {
-            int index = -1;
-            foreach (FactionSlot facSlot in source.FactionSlots)
+            foreach (FactionSlot facSlot in source.ActiveFactionSlots)
             {
-                index++;
                 AvailableFaction thisFactionData = AvailableFactions.Find(AF => AF.FactionType == facSlot.Data.type);
                 if (thisFactionData != null)
                 {
                     // First we will get the position GO for the player by index
-                    if (this.PlayerPositionsParent.GetChild(index).TryGetComponent(out PlayerStartLocation thisPlayersStart))
+                    for (int i = 0; i < GameMgrFactionCount; i++)
                     {
+                        if (this.PlayerPositionsParent.GetChild(i).TryGetComponent(out PlayerStartLocation thisPlayersStart))
+                    {
+                            if (this.PlayerPositionsParent.GetChild(i).position == facSlot.FactionSpawnPosition)
+                            {
                         if (facSlot.IsLocalPlayerFaction())
                         {
                             this.CamController.PanningHandler.SetPosition(thisPlayersStart.BuildingsParent.GetChild(0).position);
@@ -138,6 +142,8 @@ public class RTSEScenePrepManager : MonoBehaviour, IPreRunGameService
                                     }
                                 }
                             }
+                        }
+                    }
                         }
                     }
                 }
